@@ -5,15 +5,18 @@
     <title>LACITY_EXPLORATION 4 | ZONING</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.19.1/mapbox-gl.js'></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.19.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v1.1.0/mapbox-gl-geocoder.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v1.1.0/mapbox-gl-geocoder.css' type='text/css' />
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
         .map-overlay {
-            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            font: 14px/20px 'Lato', Lato, Helvetica, sans-serif;
             position: absolute;
-            width: 200px;
-            top: 0;
+            width: 240px;
+            top: 50px;
             left: 0;
             padding: 10px;
         }
@@ -47,9 +50,13 @@
         }
 
         .map-overlay-inner button {
+            font-family: Lato;
+            font-weight: bold;
+            font-size:1em;
             display: inline-block;
-            width: 36px;
-            height: 20px;
+            color: white;
+            width: 200px;
+            height: 40px;
             border: none;
             cursor: pointer;
         }
@@ -69,15 +76,21 @@
 <div class='map-overlay top'>
     <div class='map-overlay-inner'>
         <fieldset>
-            <label>Select layer</label>
-            <select id='layer' name='layer'>
-                <option value='water'>Light Background</option>
-                <option value='building'>Satellite Imagery</option>
-            </select>
+            <label>lacity_exploration 4 | Los Angeles City Zoning Map</label>
+
         </fieldset>
         <fieldset>
-            <label>Choose a color</label>
-            <div id='swatches'></div>
+            <label>Generalized Zoning</label>
+            <div id='swatches'>
+            <button style="background:#43782c" onclick='layerchange()'>Open Space</button>
+            <button style="background:#c4dc7a">Agrigultural</button>
+            <button style="background:#f6f283">Single Family Residential</button>
+            <button style="background:#fcc285">Multifamily Residential</button>
+            <button style="background:#f17297">Commercial</button>
+            <button style="background:#7fa4d5">Manufacturing</button>
+            <button style="background:#9f98a8">Parking</button>
+            <button style="background:#6cab98">Public Facilities</button>
+            </div>
         </fieldset>
     </div>
 </div>    
@@ -87,10 +100,19 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/cruzin73vw/cip7vg00b0022ahnfy036nub8',
     zoom: 10,
-    center: [-118.2621, 34.0267]
+    center: [-118.2621, 34.0267],
+    hash:true
 });
 
+map.addControl(new mapboxgl.Geocoder());
+map.dragRotate.disable();
+map.touchZoomRotate.disableRotation();
 
+var layerchange = function(){
+    var layername = map.getFilter('R1_308');
+    //map.setFilter('R1_308', ['==', 'ZONE_CODE', 0]);
+    console.log(layername)
+}
 </script>
 
 </body>
