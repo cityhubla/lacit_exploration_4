@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>LACITY_EXPLORATION 4 | ZONING</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link href='css/main_1.css' rel='stylesheet' type='text/css'>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.19.1/mapbox-gl.js'></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.19.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v1.1.0/mapbox-gl-geocoder.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v1.1.0/mapbox-gl-geocoder.css' type='text/css' />
+
+</head>
+<body>
+
+<div id='map'></div>
+<div class='map-overlay top'>
+    <div class='map-overlay-inner'>
+        <fieldset>
+            <label>lacity_exploration 5 | Los Angeles City Zoning Map</label>
+        </fieldset>
+        <fieldset>
+            <label>Generalized Zoning</label>
+            <div id='swatches'>
+            <button style="background:#43782c" onclick='layerchange()'>Open Space</button>
+            <button style="background:#c4dc7a">Agricultural</button>
+            <button style="background:#f6f283">Single Family Residential</button>
+            <button style="background:#fcc285">Multifamily Residential</button>
+            <button style="background:#f17297">Commercial</button>
+            <button style="background:#7fa4d5">Manufacturing</button>
+            <button style="background:#9f98a8">Parking</button>
+            <button style="background:#6cab98">Public Facilities</button>
+            </div>
+        </fieldset>
+    </div>
+</div>    
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiY3J1emluNzN2dyIsImEiOiJjaW80MHJvNzgwMWcwdmFrams0OHAxaWozIn0.6TXveIiYaYPFdf8QTO6Ssw';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/cruzin73vw/cip7vg00b0022ahnfy036nub8',
+    zoom: 10,
+    center: [-118.2621, 34.0267],
+    hash:true
+});
+
+map.addControl(new mapboxgl.Geocoder());
+map.dragRotate.disable();
+map.touchZoomRotate.disableRotation();
+
+var layerchange = function(){
+    var layername = map.getFilter('R1_308');
+    //map.setFilter('R1_308', ['==', 'ZONE_CODE', 0]);
+    console.log(layername)
+}
+</script>
+
+</body>
+</html>

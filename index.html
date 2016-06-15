@@ -10,10 +10,10 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.19.1/mapbox-gl.css' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v1.1.0/mapbox-gl-geocoder.js'></script>
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v1.1.0/mapbox-gl-geocoder.css' type='text/css' />
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 </head>
 <body>
-
 <div id='map'></div>
 <div class='map-overlay top'>
     <div class='map-overlay-inner'>
@@ -23,14 +23,14 @@
         <fieldset>
             <label>Generalized Zoning</label>
             <div id='swatches'>
-            <button style="background:#43782c" onclick='layerchange()'>Open Space</button>
-            <button style="background:#c4dc7a">Agrigultural</button>
-            <button style="background:#f6f283">Single Family Residential</button>
-            <button style="background:#fcc285">Multifamily Residential</button>
-            <button style="background:#f17297">Commercial</button>
-            <button style="background:#7fa4d5">Manufacturing</button>
-            <button style="background:#9f98a8">Parking</button>
-            <button style="background:#6cab98">Public Facilities</button>
+            <button style="background:#43782c" onclick='groupchange("openspace",this)'>Open Space</button>
+            <button style="background:#c4dc7a" onclick='groupchange("agricultural",this)'>Agricultural</button>
+            <button style="background:#f6f283" onclick='groupchange("singlefamily",this)'>Single Family Residential</button>
+            <button style="background:#fcc285" onclick='groupchange("multifamily",this)'>Multifamily Residential</button>
+            <button style="background:#f17297" onclick='groupchange("commercial",this)'>Commercial</button>
+            <button style="background:#7fa4d5" onclick='groupchange("manufacturing",this)'>Manufacturing</button>
+            <button style="background:#9f98a8" onclick='groupchange("parking",this)'>Parking</button>
+            <button style="background:#6cab98" onclick='groupchange("publicfacility",this)'>Public Facilities</button>
             </div>
         </fieldset>
     </div>
@@ -49,10 +49,32 @@ map.addControl(new mapboxgl.Geocoder());
 map.dragRotate.disable();
 map.touchZoomRotate.disableRotation();
 
-var layerchange = function(){
-    var layername = map.getFilter('R1_308');
-    //map.setFilter('R1_308', ['==', 'ZONE_CODE', 0]);
-    console.log(layername)
+
+var groupchange = function(groupname,e){
+    console.log(e)
+    var groupindex;
+    var stylelog = map.getStyle();
+    //Finds the group index that matches the group label of the style
+    $.each(stylelog.metadata['mapbox:groups'], function(index,value){
+    if (value.name===groupname){
+        groupindex=index;
+    }
+    });
+    //Finds the layer within the group index to turn off/on the layer
+    $.each(stylelog.layers, function(index,value){
+        if (value.metadata != null){            
+            if (value.metadata['mapbox:group']===groupindex){
+                var visibility = map.getLayoutProperty(value.id, 'visibility');
+                if (visibility === 'visible') {
+                    map.setLayoutProperty(value.id, 'visibility', 'none');
+                    e.className = 'active'
+                } else {
+                    e.className = '';
+                    map.setLayoutProperty(value.id, 'visibility', 'visible');
+                }
+            }
+        }
+    });
 }
 </script>
 
