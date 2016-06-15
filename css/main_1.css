@@ -49,19 +49,6 @@
             cursor: pointer;
         }
 
-        .map-overlay-inner button.active {
-            font-family: Lato;
-            font-weight: bold;
-            font-size:1em;
-            display: inline-block;
-            color: black;
-            width: 200px;
-            height: 40px;
-            border: none;
-            cursor: pointer;
-            opacity:0.4;
-        }
-
         .map-overlay-inner button:focus {
             outline: none;
         }
