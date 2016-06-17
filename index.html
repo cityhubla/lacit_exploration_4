@@ -18,7 +18,8 @@
 <div class='map-overlay top'>
     <div class='map-overlay-inner'>
         <fieldset>
-            <label>lacity_exploration 5 | Los Angeles City Zoning Map</label>
+            <label>lacity_exploration 5 | Los Angeles City Zoning Map | V.06</label>
+            <p>Click on the legend to filter through the generalized zoning. Click on the map to highlight and identify the zone and all similar zones in the city. Made by Omar Ureta</p>
         </fieldset>
         <fieldset>
             <label>Generalized Zoning</label>
@@ -51,7 +52,9 @@ var map = new mapboxgl.Map({
 });
 
 map.addControl(new mapboxgl.Geocoder({
-proximity:[-118.2621, 34.0267]
+    position:'top-right',
+    proximity:[-118.2621, 34.0267],
+    placeholder:"Search by Address"
 }));
 map.dragRotate.disable();
 map.touchZoomRotate.disableRotation();
