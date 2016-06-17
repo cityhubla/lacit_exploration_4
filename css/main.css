@@ -4,7 +4,6 @@
             font: 14px/20px 'Lato', Lato, Helvetica, sans-serif;
             position: absolute;
             width: 240px;
-            top: 50px;
             left: 0;
             padding: 10px;
         }
@@ -34,6 +33,10 @@
             display: block;
             font-weight: bold;
             margin: 0 0 5px;
+            padding:5px;
+        }
+
+        .map-overlay-inner p {
             padding:5px;
         }
 
@@ -126,5 +129,15 @@ left:20px;
             left: 0;
             padding: 0px;
             overflow:scroll;
+        }
+        .map-overlay-inner button {
+            width: 100%;
+        }
+        
+        .map-overlay-inner button.active {
+            width: 100%;
+        }
+           .legend-overlay {
+               display:none;
         }
 }
