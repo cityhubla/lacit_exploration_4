@@ -34,7 +34,12 @@
             </div>
         </fieldset>
     </div>
-</div>    
+</div>
+<div class='legend-overlay'>
+    <div class='legend-overlay-inner'>
+
+    </div>
+    </div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiY3J1emluNzN2dyIsImEiOiJjaW80MHJvNzgwMWcwdmFrams0OHAxaWozIn0.6TXveIiYaYPFdf8QTO6Ssw';
 var map = new mapboxgl.Map({
@@ -53,7 +58,6 @@ map.touchZoomRotate.disableRotation();
 
 
 var groupchange = function(groupname,e){
-    console.log(e)
     var groupindex;
     var stylelog = map.getStyle();
     //Finds the group index that matches the group label of the style
