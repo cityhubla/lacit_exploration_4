@@ -16,13 +16,16 @@
 <body>
 <div id='map'></div>
 <div id='title'>
-    <p>lacity_exploration 5 V.05| Zoning | Click on the legend to filter through the generalized zoning. Click on the map to highlight and identify the zone and all similar zones in the city. Data from LA Dept of City Planning, Made by <a href="http://www.theworks.la">Omar Ureta</p>
+    <p>lacity_exploration 5 V.06| Zoning | Click on the legend to filter through the generalized zoning. Click on the map to highlight and identify the zone and all similar zones in the city. Data from LA Dept of City Planning, Made by <a href="http://www.theworks.la">Omar Ureta</p>
     <p></a></p>
     </div>
+<div id='infomenu'>
+<p>The City Of LA is 468 square miles. 86% of the city is regulated by the city's zoning code, with 14% mostly just streets.</p>
+</div>
 <div class='map-overlay top'>
     <div class='map-overlay-inner'>
         <fieldset>
-            <label>lacity_exploration 5 | Los Angeles City Zoning Map | V.06</label>
+            <label>lacity_exploration 5 | Los Angeles City Zoning Map | V.07</label>
             <p>Click on the legend to filter through the generalized zoning. Click on the map to highlight and identify the zone and all similar zones in the city. Data from LA Dept of City Planning, Made by <a href="http://www.theworks.la">Omar Ureta</a></p>
         </fieldset>
         <fieldset>
@@ -71,15 +74,15 @@
             <div id='chartlabel' style='right:0; border-color:slategrey; color:slategrey'>13.89%</div>
         </button>
         
-        <!--<div id='infobox' class='os' onclick='groupchange("openspace",this)' title="Open Space">13.58% of LA is zoned Open Space</div>
-        <div id='infobox' class='ag' onclick='groupchange("agricultural",this)' title="Agricultural">10.34% of LA is zoned Agricultural</div>
-        <div id='infobox' class='sfr' onclick='groupchange("singlefamily",this)' title="Single Family Residential">30.10% of LA is zoned Single Family Residential</div>
-        <div id='infobox' class='mfr' onclick='groupchange("multifamily",this)' title="Multifamily Residential">11.35% of LA is zoned Multifamily Residential</div>
-        <div id='infobox' class='com' onclick='groupchange("commercial",this)' title="Commercial">4.55% of LA is zoned Commercial</div>
-        <div id='infobox' class='mfrg' onclick='groupchange("manufacturing",this)' title="Manufacturing">9.88% of LA is zoned Manufacturing</div>
-        <div id='infobox' class='pubf' onclick='groupchange("publicfacility",this)' title="Public Facilities">5.66% of LA is Zoned Public Facilities</div>
-        <div id='infobox' class='pkg' onclick='groupchange("parking",this)' title="Parking">0.47% of LA is zoned Parking</div>
-        <div id='infobox' class='roads' title="Roads">13.89% of LA is just streets</div>-->    
+        <div id='infobox' class='os offzoneclass' onclick='groupchange("openspace",this)' title="Open Space">13.58% of LA is zoned Open Space</div>
+        <div id='infobox' class='ag offzoneclass' onclick='groupchange("agricultural",this)' title="Agricultural">10.34% of LA is zoned Agricultural</div>
+        <div id='infobox' class='sfr offzoneclass' onclick='groupchange("singlefamily",this)' title="Single Family Residential">30.10% of LA is zoned Single Family Residential</div>
+        <div id='infobox' class='mfr offzoneclass' onclick='groupchange("multifamily",this)' title="Multifamily Residential">11.35% of LA is zoned Multifamily Residential</div>
+        <div id='infobox' class='com offzoneclass' onclick='groupchange("commercial",this)' title="Commercial">4.55% of LA is zoned Commercial</div>
+        <div id='infobox' class='mfrg offzoneclass' onclick='groupchange("manufacturing",this)' title="Manufacturing">9.88% of LA is zoned Manufacturing</div>
+        <div id='infobox' class='pubf offzoneclass' onclick='groupchange("publicfacility",this)' title="Public Facilities">5.66% of LA is Zoned Public Facilities</div>
+        <div id='infobox' class='pkg offzoneclass' onclick='groupchange("parking",this)' title="Parking">0.47% of LA is zoned Parking</div>
+        <div id='infobox' class='roads offzoneclass' title="Roads">13.89% of LA is just streets</div> 
     </div>
     </div>
 <script>

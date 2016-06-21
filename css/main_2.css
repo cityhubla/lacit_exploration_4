@@ -1,6 +1,7 @@
 body { margin:0; padding:0; }
 #map { position:fixed; top:55px; bottom:110px; width:100%; }
 #title {position:fixed; top:0px; height:55px; width:100%; }
+#infomenu {position:fixed; bottom:55px; height:55px; width:100%; line-height: 0px}
 
 .map-overlay {
     display:none;
@@ -222,6 +223,8 @@ left:20px;
     #map {  
         height:65%; 
     }
+    #title {display:none}
+    #infomenu {display:none}
         .map-overlay {
             display:block;
             font: 14px/20px 'Lato', Lato, Helvetica, sans-serif;
@@ -239,7 +242,7 @@ left:20px;
         .map-overlay-inner button.active {
             width: 100%;
         }
-           .legend-overlay {
+        .legend-overlay {
                display:none;
         }
 }
