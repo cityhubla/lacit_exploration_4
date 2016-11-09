@@ -190,6 +190,9 @@ body { margin:0; padding:0; }
     border-style: solid;
     border-width: 1px;
 }
+#mobilepopup{
+        display:none;
+    }
 
 #zonecontainer{
         position:relative;
@@ -236,7 +239,13 @@ left:20px;
 
 @media (max-width:800px) { 
     #map {  
-        height:65%; 
+        height:65%;
+        top:0;
+    }
+    
+    #mobilepopup{
+        background-color: lightgray;
+        display:block
     }
     #title {display:none}
     #infomenu {display:none}
