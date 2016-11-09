@@ -24,6 +24,8 @@
 </div>
 <div class='map-overlay top'>
     <div class='map-overlay-inner'>
+        <fieldset id='mobilepopup'>
+        </fieldset>
         <fieldset>
             <label>lacity_exploration 5 | Los Angeles City Zoning Map | V.07</label>
             <p>Click on the legend to filter through the generalized zoning. Click on the map to highlight and identify the zone and all similar zones in the city. Data from LA Dept of City Planning, Made by <a href="http://www.theworks.la">Omar Ureta</a></p>
@@ -31,14 +33,14 @@
         <fieldset>
             <label>Generalized Zoning</label>
             <div id='swatches'>
-            <button style="background:rgba(67,119,44,.5)" onclick='groupchange("openspace",this)'>Open Space</button>
-            <button style="background:rgba(196,220,122,.5)" onclick='groupchange("agricultural",this)'>Agricultural</button>
-            <button style="background:rgba(246,242,131,.5)" onclick='groupchange("singlefamily",this)'>Single Family Residential</button>
-            <button style="background:rgba(252,194,133,.5)" onclick='groupchange("multifamily",this)'>Multifamily Residential</button>
-            <button style="background:rgba(241,114,151,.5)" onclick='groupchange("commercial",this)'>Commercial</button>
-            <button style="background:rgba(127,164,213,.5)" onclick='groupchange("manufacturing",this)'>Manufacturing</button>
-            <button style="background:rgba(159,152,168,.5)" onclick='groupchange("parking",this)'>Parking</button>
-            <button style="background:rgba(108,171,152,.5)" onclick='groupchange("publicfacility",this)'>Public Facilities</button>
+            <button style="background:rgba(67,119,44,.5)" onclick='groupchange("openspace",this)'>13.58% Open Space</button>
+            <button style="background:rgba(196,220,122,.5)" onclick='groupchange("agricultural",this)'>10.34% Agricultural</button>
+            <button style="background:rgba(246,242,131,.5)" onclick='groupchange("singlefamily",this)'>30.10% Single Family Residential</button>
+            <button style="background:rgba(252,194,133,.5)" onclick='groupchange("multifamily",this)'>11.35% Multifamily Residential</button>
+            <button style="background:rgba(241,114,151,.5)" onclick='groupchange("commercial",this)'>4.55% Commercial</button>
+            <button style="background:rgba(127,164,213,.5)" onclick='groupchange("manufacturing",this)'>9.88% Manufacturing</button>
+            <button style="background:rgba(159,152,168,.5)" onclick='groupchange("parking",this)'>0.47% Parking</button>
+            <button style="background:rgba(108,171,152,.5)" onclick='groupchange("publicfacility",this)'>5.66% Public Facilities</button>
             </div>
         </fieldset>
     </div>
@@ -74,28 +76,7 @@
             <div id='chartlabel' style='right:0; border-color:slategrey; color:slategrey'>13.89%</div>
         </button>
         
-        <div id='infobox' class='os offzoneclass' onclick='groupchange("openspace",this)' title="Open Space">13.58% of LA is zoned Open Space
-            <div class='zonemenu'>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-                <div class='zone'></div>
-            </div>
-        </div>
+        <div id='infobox' class='os offzoneclass' onclick='groupchange("openspace",this)' title="Open Space">13.58% of LA is zoned Open Space</div>
         <div id='infobox' class='ag offzoneclass' onclick='groupchange("agricultural",this)' title="Agricultural">10.34% of LA is zoned Agricultural</div>
         <div id='infobox' class='sfr offzoneclass' onclick='groupchange("singlefamily",this)' title="Single Family Residential">30.10% of LA is zoned Single Family Residential</div>
         <div id='infobox' class='mfr offzoneclass' onclick='groupchange("multifamily",this)' title="Multifamily Residential">11.35% of LA is zoned Multifamily Residential</div>
@@ -144,13 +125,16 @@ map.on('click', function (e) {
     if (feature.layer['source-layer']==='lacity_zoning'){
         map.setPaintProperty(prevpaintlayer,'fill-opacity',.5);
         map.setPaintProperty(prevpaintlayer,'fill-antialias',false);
-        
+        $("#mobilepopup").html("<h3>THIS IS ZONED: </h3>"+feature.properties.ZONE_CMPLT+"<h3>HIGHLIGHTED ZONE TYPE: </h3>"+feature.properties.ZONE_CLASS);
         //document.getElementById('infobox').innerHTML = '<h1>ZONE: '+feature.properties.ZONE_CLASS+'</h1>'
+        
+if($('#mobilepopup:hidden').length == 1)
+{
     var popup = new mapboxgl.Popup()
         .setLngLat(map.unproject(e.point))
-        .setHTML("<h3>ZONE: "+feature.properties.ZONE_CMPLT+"<h3>ZONE CLASS: "+feature.properties.ZONE_CLASS)
+        .setHTML("<h3>THIS IS ZONED: </h3>"+feature.properties.ZONE_CMPLT+"<h3>HIGHLIGHTED ZONE TYPE: </h3>"+feature.properties.ZONE_CLASS)
         .addTo(map);
-        
+}
         map.setPaintProperty(feature.layer.id,'fill-opacity',1);
         map.setPaintProperty(feature.layer.id,'fill-antialias',true)
         map.setPaintProperty(feature.layer.id,'fill-outline-color','#818181')
