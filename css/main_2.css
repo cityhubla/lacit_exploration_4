@@ -212,6 +212,21 @@ body { margin:0; padding:0; }
     display:block;
 }
 
+.zonemenu{
+    display:block;
+    width: 80px;
+    height: 100%;
+    bottom: 120px;
+    position: absolute;    
+}
+
+.zone {
+    display:inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: red;
+}
+
 @media (min-width:801px){
 #info {
 top:18px;

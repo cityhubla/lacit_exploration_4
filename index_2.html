@@ -74,7 +74,28 @@
             <div id='chartlabel' style='right:0; border-color:slategrey; color:slategrey'>13.89%</div>
         </button>
         
-        <div id='infobox' class='os offzoneclass' onclick='groupchange("openspace",this)' title="Open Space">13.58% of LA is zoned Open Space</div>
+        <div id='infobox' class='os offzoneclass' onclick='groupchange("openspace",this)' title="Open Space">13.58% of LA is zoned Open Space
+            <div class='zonemenu'>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+                <div class='zone'></div>
+            </div>
+        </div>
         <div id='infobox' class='ag offzoneclass' onclick='groupchange("agricultural",this)' title="Agricultural">10.34% of LA is zoned Agricultural</div>
         <div id='infobox' class='sfr offzoneclass' onclick='groupchange("singlefamily",this)' title="Single Family Residential">30.10% of LA is zoned Single Family Residential</div>
         <div id='infobox' class='mfr offzoneclass' onclick='groupchange("multifamily",this)' title="Multifamily Residential">11.35% of LA is zoned Multifamily Residential</div>
@@ -114,8 +135,12 @@ map.on('click', function (e) {
         return;
     }
     
-    var feature = features[0];
-    console.log(feature);
+    var feature;
+    $.each(features, function(index){
+    console.log(index);
+    if (features[index].layer['source-layer']==='lacity_zoning'){feature=features[index]};
+    }  ) 
+  
     if (feature.layer['source-layer']==='lacity_zoning'){
         map.setPaintProperty(prevpaintlayer,'fill-opacity',.5);
         map.setPaintProperty(prevpaintlayer,'fill-antialias',false);
