@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>LACITY_EXPLORATION 5 | ZONING</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link href='css/main_2.css' rel='stylesheet' type='text/css'>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.19.1/mapbox-gl.js'></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.19.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v1.1.0/mapbox-gl-geocoder.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v1.1.0/mapbox-gl-geocoder.css' type='text/css' />
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="js/papaparse.min.js"></script>
+
+</head>
+<body>
+<div id='map'></div>
+<div id='title'>
+    <p>lacity_exploration 5 V.06| Zoning | Click on the legend to filter through the generalized zoning. Click on the map to highlight and identify the zone and all similar zones in the city. Data from LA Dept of City Planning, Made by <a href="http://www.theworks.la">Omar Ureta</p>
+    <p></a></p>
+    </div>
+<div id='infomenu'>
+<p>The City Of LA is 468 square miles. 86% of the city is regulated by the city's zoning code, with 14% mostly just streets.</p>
+</div>
+<div class='map-overlay top'>
+    <div class='map-overlay-inner'>
+        <fieldset id='mobilepopup'>
+        </fieldset>
+        <fieldset>
+            <label>lacity_exploration 5 | Los Angeles City Zoning Map | V.07</label>
+            <p>Click on the legend to filter through the generalized zoning. Click on the map to highlight and identify the zone and all similar zones in the city. Data from LA Dept of City Planning, Made by <a href="http://www.theworks.la">Omar Ureta</a></p>
+        </fieldset>
+        <fieldset>
+            <label>Generalized Zoning</label>
+            <div id='swatches'>
+            <button style="background:rgba(67,119,44,.5)" onclick='groupchange("openspace",this)'>13.58% Open Space</button>
+            <button style="background:rgba(196,220,122,.5)" onclick='groupchange("agricultural",this)'>10.34% Agricultural</button>
+            <button style="background:rgba(246,242,131,.5)" onclick='groupchange("singlefamily",this)'>30.10% Single Family Residential</button>
+            <button style="background:rgba(252,194,133,.5)" onclick='groupchange("multifamily",this)'>11.35% Multifamily Residential</button>
+            <button style="background:rgba(241,114,151,.5)" onclick='groupchange("commercial",this)'>4.55% Commercial</button>
+            <button style="background:rgba(127,164,213,.5)" onclick='groupchange("manufacturing",this)'>9.88% Manufacturing</button>
+            <button style="background:rgba(159,152,168,.5)" onclick='groupchange("parking",this)'>0.47% Parking</button>
+            <button style="background:rgba(108,171,152,.5)" onclick='groupchange("publicfacility",this)'>5.66% Public Facilities</button>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class='legend-overlay'>
+    <div class='legend-overlay-inner'>
+        <button class='os' onclick='groupchange("openspace",this)' title="Open Space">OS
+            <div id='chartlabel'>13.58%</div>
+
+        </button>
+        <button class='ag' onclick='groupchange("agricultural",this)' title="Agricultural">AGR
+            <div id='chartlabel'>10.34%</div>
+        </button>
+        <button class='sfr' onclick='groupchange("singlefamily",this)' title="Single Family Residential">SFR
+            <div id='chartlabel'>30.10%</div>
+        </button>
+        <button class='mfr' onclick='groupchange("multifamily",this)' title="Multifamily Residential">MFR
+            <div id='chartlabel'>11.35%</div>
+        </button>
+        <button class='com' onclick='groupchange("commercial",this)' title="Commercial">COM
+            <div id='chartlabel'>4.55%</div>
+        </button>
+        <button class='mfrg' onclick='groupchange("manufacturing",this)' title="Manufacturing">MFG
+            <div id='chartlabel'>9.88%</div>
+        </button>
+        <button class='pubf' onclick='groupchange("publicfacility",this)' title="Public Facilities">PF
+            <div id='chartlabel'>5.66%</div>
+        </button>
+        <button class='pkg' onclick='groupchange("parking",this)' title="Parking">P
+            <div id='chartlabel'>0.47%</div>
+        </button>
+        <button class='roads' title="Roads">ST
+            <div id='chartlabel' style='right:0; border-color:slategrey; color:slategrey'>13.89%</div>
+        </button>
+        
+        <div id='infobox' class='os offzoneclass' onclick='groupchange("openspace",this)' title="Open Space">13.58% of LA is zoned Open Space</div>
+        <div id='infobox' class='ag offzoneclass' onclick='groupchange("agricultural",this)' title="Agricultural">10.34% of LA is zoned Agricultural</div>
+        <div id='infobox' class='sfr offzoneclass' onclick='groupchange("singlefamily",this)' title="Single Family Residential">30.10% of LA is zoned Single Family Residential</div>
+        <div id='infobox' class='mfr offzoneclass' onclick='groupchange("multifamily",this)' title="Multifamily Residential">11.35% of LA is zoned Multifamily Residential</div>
+        <div id='infobox' class='com offzoneclass' onclick='groupchange("commercial",this)' title="Commercial">4.55% of LA is zoned Commercial</div>
+        <div id='infobox' class='mfrg offzoneclass' onclick='groupchange("manufacturing",this)' title="Manufacturing">9.88% of LA is zoned Manufacturing</div>
+        <div id='infobox' class='pubf offzoneclass' onclick='groupchange("publicfacility",this)' title="Public Facilities">5.66% of LA is Zoned Public Facilities</div>
+        <div id='infobox' class='pkg offzoneclass' onclick='groupchange("parking",this)' title="Parking">0.47% of LA is zoned Parking</div>
+        <div id='infobox' class='roads offzoneclass' title="Roads">13.89% of LA is just streets</div> 
+    </div>
+    </div>
+<script>
+var csvfile='research/sum_of_zone_1.csv';
+var zone_summary;    
+var zoneresults= Papa.parse(csvfile, 
+                            {download: true,
+                             header: true,
+                             complete: function(results, file) {
+                                 zone_summary=results;
+                                 console.log("Parsing complete:", results, file);
+                             }
+                            });
+    
+mapboxgl.accessToken = 'pk.eyJ1IjoiY3J1emluNzN2dyIsImEiOiJjaW80MHJvNzgwMWcwdmFrams0OHAxaWozIn0.6TXveIiYaYPFdf8QTO6Ssw';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'js/style.json',
+    zoom: 10,
+    center: [-118.2621, 34.0267],
+    hash:true,
+    attributionControl: false
+});
+
+map.addControl(new mapboxgl.Geocoder({
+    position:'top-right',
+    proximity:[-118.2621, 34.0267],
+    placeholder:"Search by Address"
+}));
+map.dragRotate.disable();
+map.touchZoomRotate.disableRotation();
+
+// When a click event occurs near a marker icon, open a popup at the location of
+// the feature, with description HTML from its properties.
+var prevpaintlayer = 'RE15_303';
+map.on('click', function (e) {
+    var features = map.queryRenderedFeatures(e.point, {});
+    var srcfeature = map.querySourceFeatures("lacity_zoning")
+    if (!features.length) {
+        return;
+    }
+    
+    var feature;
+    $.each(features, function(index){
+    console.log(index);
+    if (features[index].layer['source-layer']==='lacity_zoning'){feature=features[index]};
+    }  ) 
+  
+    if (feature.layer['source-layer']==='lacity_zoning'){
+        var zoneinfo=getzoneuse(feature.properties.ZONE_CLASS);
+        console.log(zoneinfo);
+        map.setPaintProperty(prevpaintlayer,'fill-opacity',.5);
+        map.setPaintProperty(prevpaintlayer,'fill-antialias',false);
+        $("#mobilepopup").html("<h2>General Summary</h2>"
+                 +"<b>This "+zoneinfo.zonetype+" Area is zoned: </b>"+feature.properties.ZONE_CMPLT
+                 +"<br><b>Uses may include: </b>"+zoneinfo.subuse
+                 +"<br><b>Highlighted areas are also zoned: </b>"+feature.properties.ZONE_CLASS
+                 +"<h3>Maximum Height</h3>"
+                 +"<b>Stories: </b>"+zoneinfo.stories
+                 +"<br><b>Feet: </b>"+zoneinfo.feet
+                 +"<h3>Required Yards</h3>"
+                 +"<b>Front: </b>"+zoneinfo.front
+                 +"<br><b>Side: </b>"+zoneinfo.side
+                 +"<br><b>Rear: </b>"+zoneinfo.rear
+                 +"<h3>Minimum Area</h3>"
+                 +"<b>Per lot: </b>"+zoneinfo.per_lot
+                 +"<br><b>Per Dwelling Unit: </b>"+zoneinfo.per_dwelling_unit);
+        //document.getElementById('infobox').innerHTML = '<h1>ZONE: '+feature.properties.ZONE_CLASS+'</h1>'
+        
+if($('#mobilepopup:hidden').length == 1)
+{
+    var popup = new mapboxgl.Popup()
+        .setLngLat(map.unproject(e.point))
+        .setHTML("<h2>General Summary</h2>"
+                 +"<b>This "+zoneinfo.zonetype+" Area is zoned: </b>"+feature.properties.ZONE_CMPLT
+                 +"<br><b>Uses may include: </b>"+zoneinfo.subuse
+                 +"<br><b>Highlighted areas are also zoned: </b>"+feature.properties.ZONE_CLASS
+                 +"<h3>Maximum Height</h3>"
+                 +"<b>Stories: </b>"+zoneinfo.stories
+                 +"<br><b>Feet: </b>"+zoneinfo.feet
+                 +"<h3>Required Yards</h3>"
+                 +"<b>Front: </b>"+zoneinfo.front
+                 +"<br><b>Side: </b>"+zoneinfo.side
+                 +"<br><b>Rear: </b>"+zoneinfo.rear
+                 +"<h3>Minimum Area</h3>"
+                 +"<b>Per lot: </b>"+zoneinfo.per_lot
+                 +"<br><b>Per Dwelling Unit: </b>"+zoneinfo.per_dwelling_unit
+                ).addTo(map);
+}
+        map.setPaintProperty(feature.layer.id,'fill-opacity',1);
+        map.setPaintProperty(feature.layer.id,'fill-antialias',true)
+        map.setPaintProperty(feature.layer.id,'fill-outline-color','#818181')
+        prevpaintlayer = feature.layer.id;
+}
+});
+
+// Use the same approach as above to indicate that the symbols are clickable
+// by changing the cursor style to 'pointer'.
+map.on('mousemove', function (e) {
+    var features = map.queryRenderedFeatures(e.point, {});
+    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+});
+
+var stylelog;
+$.getJSON('js/style.json', function(json) {
+  stylelog = json;
+});
+    
+    
+var groupchange = function(groupname,e){
+    var groupindex;
+    
+    //Finds the group index that matches the group label of the style
+    $.each(stylelog.metadata['mapbox:groups'], function(index,value){
+    if (value.name===groupname){
+        groupindex=index;
+    }
+    });
+    //Finds the layer within the group index to turn off/on the layer
+    $.each(stylelog.layers, function(index,value){
+        if (value.metadata != null){            
+            if (value.metadata['mapbox:group']===groupindex){
+                var visibility = map.getLayoutProperty(value.id, 'visibility');
+                if (visibility === 'visible') {
+                    map.setLayoutProperty(value.id, 'visibility', 'none');
+                    $(e).addClass('active');
+                    //e.className = 'active'
+                } else {
+                    //e.className = '';
+                    $(e).removeClass('active');
+                    map.setLayoutProperty(value.id, 'visibility', 'visible');
+                }
+            }
+        }
+    });
+}
+
+//Hover over to bring primary menu
+$("button").hover(
+    function(){
+        var getbuttonclass = $(this).attr('class');
+        $("#infobox."+getbuttonclass).toggleClass('onzoneclass');
+        $("#zonebox."+getbuttonclass).toggleClass('onzoneclass');
+    }
+);
+    
+//Find in Zoning Summary
+var getzoneuse = function(zoneuse){
+    for(var i = 0 ; i< zone_summary.data.length; i++){
+        var obj = zone_summary.data[i];
+        var arr = obj["zone"];
+        if (zoneuse==arr){
+        return obj
+        }
+
+    }
+}
+</script>
+
+</body>
+</html>
