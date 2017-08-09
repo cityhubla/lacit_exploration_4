@@ -3,6 +3,9 @@ body { margin:0; padding:0; }
 #title {position:fixed; top:0px; height:55px; width:100%; }
 #infomenu {position:fixed; bottom:55px; height:55px; width:100%; line-height: 0px}
 
+.mapboxgl-popup-content{
+width:400px;
+}
 .map-overlay {
     display:none;
     font: 14px/20px 'Lato', Lato, Helvetica, sans-serif;
